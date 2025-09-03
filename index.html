@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Helper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f0f0f0;
+    }
+    #countdown {
+      font-size: 2em;
+      margin: 20px 0;
+      color: #333;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Verification Helper</h1>
+  <p>Step 1: Open task page:</p>
+  <button onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">Open Task Page</button>
+
+  <p>Step 2: Open verify page:</p>
+  <button onclick="window.open('https://streamfiles.eu.org/verify.php', '_blank')">Open Verify Page</button>
+
+  <p>Step 3: Copy your verification code and wait:</p>
+  <div id="countdown">10</div>
+
+  <script>
+    let timeLeft = 10;
+    const countdownEl = document.getElementById('countdown');
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        window.open('https://streamfiles.eu.org/task.php', '_blank');
+        countdownEl.textContent = "✅ Redirected to task page!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
