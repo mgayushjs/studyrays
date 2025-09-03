@@ -16,40 +16,47 @@
       margin: 20px 0;
       color: #333;
     }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
     button {
       padding: 10px 20px;
       font-size: 1em;
-      margin-top: 20px;
+      margin: 10px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1>Verification Helper</h1>
-  <p>Step 1: Open task page:</p>
+
+  <p>Step 1: Open Task Page</p>
   <button onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">Open Task Page</button>
 
-  <p>Step 2: Open verify page:</p>
+  <p>Step 2: Open Verify Page</p>
   <button onclick="window.open('https://streamfiles.eu.org/verify.php', '_blank')">Open Verify Page</button>
 
-  <p>Step 3: Copy your verification code and wait:</p>
-  <div id="countdown">10</div>
+  <p>Step 3: Copy your verification code and wait for 20 seconds:</p>
+  <div id="countdown">20</div>
+
+  <p id="finalStep" style="display:none;">
+    ✅ Countdown finished! Click below to return to the Task Page:
+  </p>
+  <button id="openFinalBtn" style="display:none;" onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">
+    Open Task Page Again
+  </button>
 
   <script>
-    let timeLeft = 10;
+    let timeLeft = 20;
     const countdownEl = document.getElementById('countdown');
+    const finalStep = document.getElementById('finalStep');
+    const openFinalBtn = document.getElementById('openFinalBtn');
 
     const timer = setInterval(() => {
       timeLeft--;
       countdownEl.textContent = timeLeft;
       if (timeLeft <= 0) {
         clearInterval(timer);
-        window.open('https://streamfiles.eu.org/task.php', '_blank');
-        countdownEl.textContent = "✅ Redirected to task page!";
+        countdownEl.style.display = 'none';
+        finalStep.style.display = 'block';
+        openFinalBtn.style.display = 'inline-block';
       }
     }, 1000);
   </script>
