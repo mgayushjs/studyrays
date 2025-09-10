@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Step by Step Verification Flow</title>
+  <title>Verification Helper</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,62 +11,51 @@
       padding: 50px;
       background: #f0f0f0;
     }
+    #countdown {
+      font-size: 2em;
+      margin: 20px 0;
+      color: #333;
+    }
     button {
-      font-size: 1.2em;
-      cursor: pointer;
+      padding: 12px 24px;
+      font-size: 1.1em;
       margin: 15px;
-      padding: 12px 25px;
+      cursor: pointer;
       border: none;
-      border-radius: 8px;
-      background: #007bff;
+      border-radius: 6px;
+      background: #0066cc;
       color: white;
-      display: none;
     }
     button:hover {
-      background: #0056b3;
-    }
-    #status {
-      margin-top: 30px;
-      font-size: 1.2em;
-      color: #333;
+      background: #004d99;
     }
   </style>
 </head>
 <body>
-  <h1>Verification Flow Helper</h1>
-  <p>Click each button in order when ready:</p>
+  <h1>Verification Helper</h1>
 
-  <button id="btn1">Step 1: Open Task Page</button>
-  <button id="btn2">Step 2: Open Verify Page</button>
-  <button id="btn3">Final Step: Open Task Page Again</button>
+  <p>Step 1: Open task page:</p>
+  <button onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">Open Task Page</button>
 
-  <div id="status"></div>
+  <p>Step 2: Open verify page:</p>
+  <button onclick="window.open('https://streamfiles.eu.org/verify.php', '_blank')">Open Verify Page</button>
+
+  <p>Step 3: Copy your verification code and wait:</p>
+  <div id="countdown">60</div>
 
   <script>
-    const statusEl = document.getElementById('status');
-    const btn1 = document.getElementById('btn1');
-    const btn2 = document.getElementById('btn2');
-    const btn3 = document.getElementById('btn3');
+    let timeLeft = 60; // ⏳ now 60 seconds
+    const countdownEl = document.getElementById('countdown');
 
-    // Show first button initially
-    btn1.style.display = "inline-block";
-
-    btn1.addEventListener('click', () => {
-      window.open('https://streamfiles.eu.org/task.php', '_blank');
-      statusEl.textContent = "✅ Task Page opened. Now click Step 2.";
-      btn2.style.display = "inline-block";
-    });
-
-    btn2.addEventListener('click', () => {
-      window.open('https://streamfiles.eu.org/verify.php', '_blank');
-      statusEl.textContent = "✅ Verify Page opened. Now click Final Step.";
-      btn3.style.display = "inline-block";
-    });
-
-    btn3.addEventListener('click', () => {
-      window.open('https://streamfiles.eu.org/task.php', '_blank');
-      statusEl.textContent = "🎉 Task Page reopened. Process complete!";
-    });
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        window.open('https://streamfiles.eu.org/task.php', '_blank');
+        countdownEl.textContent = "✅ Redirected to task page!";
+      }
+    }, 1000);
   </script>
 </body>
 </html>
