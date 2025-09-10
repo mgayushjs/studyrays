@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verification Helper</title>
+  <title>Step by Step Verification Flow</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,54 +11,70 @@
       padding: 50px;
       background: #f0f0f0;
     }
-    #countdown {
-      font-size: 2em;
-      margin: 20px 0;
-      color: #333;
-    }
     button {
-      padding: 10px 20px;
-      font-size: 1em;
-      margin: 10px;
+      font-size: 1.2em;
       cursor: pointer;
+      margin: 15px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      display: none;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #status {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <h1>Verification Helper</h1>
+  <h1>Verification Flow Helper</h1>
+  <p>Click each button in order when ready:</p>
 
-  <p>Step 1: Open Task Page</p>
-  <button onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">Open Task Page</button>
+  <button id="btn1">Step 1: Open Task Page</button>
+  <button id="btn2">Step 2: Open cutt.ly Link</button>
+  <button id="btn3">Step 3: Open Verify Page</button>
+  <button id="btn4">Final Step: Open Task Page Again</button>
 
-  <p>Step 2: Open Verify Page</p>
-  <button onclick="window.open('https://streamfiles.eu.org/verify.php', '_blank')">Open Verify Page</button>
-
-  <p>Step 3: Copy your verification code and wait for 20 seconds:</p>
-  <div id="countdown">20</div>
-
-  <p id="finalStep" style="display:none;">
-    ✅ Countdown finished! Click below to return to the Task Page:
-  </p>
-  <button id="openFinalBtn" style="display:none;" onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">
-    Open Task Page Again
-  </button>
+  <div id="status"></div>
 
   <script>
-    let timeLeft = 20;
-    const countdownEl = document.getElementById('countdown');
-    const finalStep = document.getElementById('finalStep');
-    const openFinalBtn = document.getElementById('openFinalBtn');
+    const statusEl = document.getElementById('status');
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2');
+    const btn3 = document.getElementById('btn3');
+    const btn4 = document.getElementById('btn4');
 
-    const timer = setInterval(() => {
-      timeLeft--;
-      countdownEl.textContent = timeLeft;
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        countdownEl.style.display = 'none';
-        finalStep.style.display = 'block';
-        openFinalBtn.style.display = 'inline-block';
-      }
-    }, 1000);
+    // Show first button initially
+    btn1.style.display = "inline-block";
+
+    btn1.addEventListener('click', () => {
+      window.open('https://streamfiles.eu.org/task.php', '_blank');
+      statusEl.textContent = "✅ Task Page opened. Wait 20 seconds, then click Step 2.";
+      btn2.style.display = "inline-block";
+    });
+
+    btn2.addEventListener('click', () => {
+      window.open('https://cutt.ly/vrXkabTi', '_blank');
+      statusEl.textContent = "✅ Cutt.ly link opened. Wait 10 seconds, then click Step 3.";
+      btn3.style.display = "inline-block";
+    });
+
+    btn3.addEventListener('click', () => {
+      window.open('https://streamfiles.eu.org/verify.php', '_blank');
+      statusEl.textContent = "✅ Verify Page opened. Now click Final Step.";
+      btn4.style.display = "inline-block";
+    });
+
+    btn4.addEventListener('click', () => {
+      window.open('https://streamfiles.eu.org/task.php', '_blank');
+      statusEl.textContent = "🎉 Task Page reopened. Process complete!";
+    });
   </script>
 </body>
 </html>
