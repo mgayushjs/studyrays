@@ -37,25 +37,47 @@
   <p>Step 1: Open task page:</p>
   <button onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">Open Task Page</button>
 
-  <p>Step 2: Open verify page:</p>
-  <button onclick="window.open('https://streamfiles.eu.org/verify.php', '_blank')">Open Verify Page</button>
-
-  <p>Step 3: Copy your verification code and wait:</p>
-  <div id="countdown">180</div>
+  <p>Step 2: Verification will start automatically:</p>
+  <div id="countdown">100</div>
 
   <script>
-    let timeLeft = 180; // ⏳ now 180 seconds
+    let timeLeft = 100; // first countdown (100s)
     const countdownEl = document.getElementById('countdown');
 
-    const timer = setInterval(() => {
-      timeLeft--;
-      countdownEl.textContent = timeLeft;
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        window.open('https://streamfiles.eu.org/task.php', '_blank');
-        countdownEl.textContent = "✅ Redirected to task page!";
-      }
-    }, 1000);
+    function startFirstCountdown() {
+      const timer1 = setInterval(() => {
+        timeLeft--;
+        countdownEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer1);
+
+          // Open verify.php
+          window.open('https://streamfiles.eu.org/verify.php', '_blank');
+          countdownEl.textContent = "✅ Verify page opened! Starting 15s timer...";
+
+          // Start second countdown
+          startSecondCountdown();
+        }
+      }, 1000);
+    }
+
+    function startSecondCountdown() {
+      let secondTime = 15;
+      const timer2 = setInterval(() => {
+        countdownEl.textContent = secondTime;
+        secondTime--;
+        if (secondTime < 0) {
+          clearInterval(timer2);
+
+          // Open task.php again
+          window.open('https://streamfiles.eu.org/task.php', '_blank');
+          countdownEl.textContent = "🎉 Task page reopened!";
+        }
+      }, 1000);
+    }
+
+    // Start first countdown automatically
+    startFirstCountdown();
   </script>
 </body>
 </html>
