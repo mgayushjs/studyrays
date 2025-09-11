@@ -37,47 +37,24 @@
   <p>Step 1: Open task page:</p>
   <button onclick="window.open('https://streamfiles.eu.org/task.php', '_blank')">Open Task Page</button>
 
-  <p>⏳ Countdown:</p>
-  <div id="countdown">100</div>
+  <p>⏳ Countdown to verify.php:</p>
+  <div id="countdown">120</div>
 
   <script>
-    let timeLeft = 100; // first countdown (100s)
+    let timeLeft = 120; // countdown in seconds
     const countdownEl = document.getElementById('countdown');
 
-    function startFirstCountdown() {
-      const timer1 = setInterval(() => {
-        timeLeft--;
-        countdownEl.textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(timer1);
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
 
-          // Open verify.php
-          window.open('https://streamfiles.eu.org/verify.php', '_blank');
-          countdownEl.textContent = "✅ Verify page opened! Starting 15s timer...";
-
-          // Start second countdown
-          startSecondCountdown();
-        }
-      }, 1000);
-    }
-
-    function startSecondCountdown() {
-      let secondTime = 15;
-      const timer2 = setInterval(() => {
-        countdownEl.textContent = secondTime;
-        secondTime--;
-        if (secondTime < 0) {
-          clearInterval(timer2);
-
-          // Open task.php again
-          window.open('https://streamfiles.eu.org/task.php', '_blank');
-          countdownEl.textContent = "🎉 Task page reopened!";
-        }
-      }, 1000);
-    }
-
-    // Start first countdown automatically
-    startFirstCountdown();
+        // Open verify.php
+        window.open('https://streamfiles.eu.org/verify.php', '_blank');
+        countdownEl.textContent = "✅ Verify page opened!";
+      }
+    }, 1000);
   </script>
 </body>
 </html>
